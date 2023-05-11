@@ -1,16 +1,34 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class UzunluguAyarlanabilirKasaSifreleme {
     public static void main(String[] args) {
-        int uzunluk = 10;
-        int[] kriptolu = karistir(sifre(uzunluk));
-        Scanner input = new Scanner(System.in);
+
+        //şifrenin hane sayısını belirt
+        Scanner input=new Scanner(System.in);
+        System.out.print("Oluşturulacak şifre kaç haneli olsun: ");
+        int uzunluk= input.nextInt();
+
+        //orijinal şifre göster
+        int[] kriptosuz = sifre(uzunluk);
+        System.out.print("Kriptosuz: ");
+        for (int i=0;i<kriptosuz.length;i++){
+            System.out.print(kriptosuz[i]+", ");
+
+        }
+
         boolean yanlisMi= true;
         int say;
 
+        System.out.println();
+        //kiriptolu şifre göster (girilmesi gereken)
+        int[] kriptolu = karistir(kriptosuz);
+        System.out.print("Kriptolu: ");
         for (int i=0;i<kriptolu.length;i++){
-            System.out.print(kriptolu[i]+" ");
+            System.out.print(kriptolu[i]+", ");
         }
+        System.out.println();
+
         while (yanlisMi){
             System.out.println("Bir sayi dene: ");
             say=0;
@@ -24,7 +42,7 @@ public class UzunluguAyarlanabilirKasaSifreleme {
             }if (say==uzunluk){
                 System.out.println("Şifre doğru");
                 for (int i=0;i<kriptolu.length;i++){
-                    System.out.print(kriptolu[i]+", ");
+                    System.out.printf("%d, ",kriptolu[i]);
                 }
                 yanlisMi=false;
             }else {
@@ -36,16 +54,17 @@ public class UzunluguAyarlanabilirKasaSifreleme {
 
         int[] dizi = new int[n];
         for (int i = 0; i < dizi.length; i++) {
-            dizi[i] = (int) (5 * Math.random() + 1);
+            dizi[i] = (int) (9 * Math.random() + 1);
         }
         return dizi;
     }
     public static int[] karistir(int[] n) {
+
         for (int i = 0; i < n.length; i++) {
-            int rasGeleAta = (int) (Math.random() * (i + 1));
-            int ata = n[rasGeleAta];
-            n[rasGeleAta] = n[i];
-            n[i] = ata;
+            int rasgeleIndis = (int) (Math.random() * n.length);
+            int tut = n[i];
+            n[i] = n[rasgeleIndis];
+            n[rasgeleIndis] = tut;
         }
         return n;
     }
